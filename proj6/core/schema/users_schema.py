@@ -1,11 +1,12 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, constr
 from core import UserIDType
 from fastapi_users import schemas
 
 
 class UserDataBase(BaseModel):
-    name: str
-    last_name: str
+    name: str | None = constr(min_length=1, max_length=120)
+    last_name: str | None = constr(min_length=1, max_length=320)
+    bio: str | None = None
 
 
 class UserDataCreate(UserDataBase):

@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends
 
 from api.routers.fau import fastapi_users
-from api.crud.user_crud import create_user_data, get_current_user
+from api.crud.user_crud import (
+    create_user_data,
+    get_current_user,
+)
 from core import UserRead, UserUpdate, db_session
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -27,16 +30,18 @@ router.include_router(
 )
 
 
-@router.post("/user_data")
+@router.put("/my_info")
 async def add_user_data(
     name: str,
     last_name: str,
+    bio: str = None,
     session: AsyncSession = Depends(db_session.get_db),
     user_id: int = Depends(get_current_user),
 ):
     return await create_user_data(
         name=name,
         last_name=last_name,
+        bio=bio,
         session=session,
         user_id=user_id,
     )

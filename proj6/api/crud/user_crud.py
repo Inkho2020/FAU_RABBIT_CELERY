@@ -40,13 +40,18 @@ async def get_current_user(
 async def create_user_data(
     name: str,
     last_name: str,
+    bio: str,
     session: AsyncSession,
     user_id: int,
 ):
     query = await session.execute(select(User).where(User.id == user_id))
     user = query.scalar_one_or_none()
 
-    user_data = UserData(name=name, last_name=last_name, user_id=user.id)
+    user_data = UserData(
+        name=name,
+        last_name=last_name,
+        bio=bio,
+    )
     session.add(user_data)
     await session.commit()
     await session.refresh(user)
