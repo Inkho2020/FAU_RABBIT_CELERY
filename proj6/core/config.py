@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from pydantic_settings import (
     BaseSettings,
     SettingsConfigDict,
 )
 from pydantic import BaseModel
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class ApiPrefix(BaseModel):
@@ -28,9 +32,9 @@ class AccessToken(BaseModel):
     verification_token: str
 
 
-class Setting(BaseSettings):
+class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=(),
+        env_file=(BASE_DIR / ".env"),
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="APP__",
@@ -40,5 +44,5 @@ class Setting(BaseSettings):
     access_token: AccessToken
 
 
-settings = Setting()
+settings = Settings()
 UserIDType = int
