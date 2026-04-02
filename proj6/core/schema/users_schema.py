@@ -23,7 +23,7 @@ class UserDataRead(UserDataBase):
 
 class UserRead(schemas.BaseUser[UserIDType]):
     model_config = ConfigDict(from_attributes=True)
-    # user_data: UserDataRead
+    user_data: UserDataRead | None = None
 
 
 class UserCreate(schemas.BaseUserCreate):
@@ -31,7 +31,7 @@ class UserCreate(schemas.BaseUserCreate):
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    pass
+    user_data: UserDataCreate
 
 
 class UserRegisteredNotification(BaseModel):
