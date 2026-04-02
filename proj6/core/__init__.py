@@ -8,6 +8,10 @@ from dependencies.user_manager_depends import get_user_manager
 from dependencies.strategy import get_database_strategy
 from dependencies.backend import authentication_backend
 from dependencies.access_token import get_access_token_db
+from schema.users_schema import UserRead
+from schema.users_schema import UserCreate
+from schema.users_schema import UserUpdate
+from schema.users_schema import UserRegisteredNotification
 
 __all__ = [
     "db_session",
@@ -20,4 +24,8 @@ __all__ = [
     "get_database_strategy",
     "authentication_backend",
     "get_access_token_db",
+    "UserCreate",
+    "UserRead",
+    "UserUpdate",
+    "UserRegisteredNotification",
 ]
