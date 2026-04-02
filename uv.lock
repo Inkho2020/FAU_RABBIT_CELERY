@@ -391,6 +391,7 @@ dependencies = [
     { name = "asyncpg" },
     { name = "fastapi", extra = ["standard"] },
     { name = "fastapi-users" },
+    { name = "fastapi-users-db-sqlalchemy" },
     { name = "pydantic", extra = ["email"] },
     { name = "pydantic-settings" },
     { name = "sqlalchemy", extra = ["asyncio"] },
@@ -409,6 +410,7 @@ requires-dist = [
     { name = "asyncpg", specifier = ">=0.31.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.135.3" },
     { name = "fastapi-users", specifier = ">=15.0.5" },
+    { name = "fastapi-users-db-sqlalchemy", specifier = ">=7.0.0" },
     { name = "pydantic", extras = ["email"], specifier = ">=2.12.5" },
     { name = "pydantic-settings", specifier = ">=2.13.1" },
     { name = "sqlalchemy", extras = ["asyncio"], specifier = ">=2.0.48" },
@@ -516,6 +518,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8d/79/98b9d733274cfe0c776fde637dc53b421a0142f51a9e3e9fecd72741f7c1/fastapi_users-15.0.5.tar.gz", hash = "sha256:097f69701894e650c346df89b1cdb0a09cf139234f4cb9a8ece275af4e98e202", size = 121394, upload-time = "2026-03-27T09:01:17.161Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5a/8e/1ed6bbe36c486b98217c4be6769d61fcb98c38b334fb39706de661a905b6/fastapi_users-15.0.5-py3-none-any.whl", hash = "sha256:10fd4f3e85ed66f694a6ca2ecac609af4e59d1f9ec64d1557f5912dccfd87c7f", size = 39038, upload-time = "2026-03-27T09:01:16.158Z" },
+]
+
+[[package]]
+name = "fastapi-users-db-sqlalchemy"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "fastapi-users" },
+    { name = "sqlalchemy", extra = ["asyncio"] },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/87/12/bc9e6146ae31564741cefc87ee6e37fa5b566933f0afe8aa030779d60e60/fastapi_users_db_sqlalchemy-7.0.0.tar.gz", hash = "sha256:6823eeedf8a92f819276a2b2210ef1dcfd71fe8b6e37f7b4da8d1c60e3dfd595", size = 10877, upload-time = "2025-01-04T13:09:05.086Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/08/9968963c1fb8c34627b7f1fbcdfe9438540f87dc7c9bfb59bb4fd19a4ecf/fastapi_users_db_sqlalchemy-7.0.0-py3-none-any.whl", hash = "sha256:5fceac018e7cfa69efc70834dd3035b3de7988eb4274154a0dbe8b14f5aa001e", size = 6891, upload-time = "2025-01-04T13:09:02.869Z" },
 ]
 
 [[package]]

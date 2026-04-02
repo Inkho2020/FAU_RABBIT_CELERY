@@ -5,11 +5,27 @@ from pydantic_settings import (
 from pydantic import BaseModel
 
 
+class ApiPrefix(BaseModel):
+    prefix: str = "/api"
+
+    @property
+    def bearer_token_url(self):
+        parts = (self.prefix, "/login")
+        path = "".join(parts)
+        return path[1:]
+
+
 class DatabaseConf(BaseModel):
     url: str
     echo: bool
     max_overflow: int
     pool_size: int
+
+
+class AccessToken(BaseModel):
+    lifetime: int
+    reset_password_token: str
+    verification_token: str
 
 
 class Setting(BaseSettings):
@@ -21,6 +37,8 @@ class Setting(BaseSettings):
     )
 
     db: DatabaseConf
+    access_token: AccessToken
 
 
 settings = Setting()
+UserIDType = int
