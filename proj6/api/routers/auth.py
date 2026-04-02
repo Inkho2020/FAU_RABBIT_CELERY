@@ -1,20 +1,17 @@
 from fastapi import APIRouter
 
-from core import authentication_backend
-from core import UserRead, UserCreate
-from core.authentication.user_manager import fastapi_users
+from api.dependencies.backend import authentication_backend
+from core import UserRead, UserCreate, settings
+from api.routers.fau import fastapi_users
 
 router = APIRouter(
     tags=["AUTH"],
-    prefix="/auth",
+    prefix=settings.api.auth,
 )
 
 # /register
 router.include_router(
-    router=fastapi_users.get_register_router(
-        UserRead,
-        UserCreate,
-    ),
+    router=fastapi_users.get_register_router(UserRead, UserCreate),
 )
 
 # /request-verify-token
@@ -25,10 +22,16 @@ router.include_router(
 
 # /login
 # /logout
-
 router.include_router(
     router=fastapi_users.get_auth_router(
         authentication_backend,
         requires_verification=True,
     ),
+)
+
+
+# /forgot-password
+# /reset-password
+router.include_router(
+    router=fastapi_users.get_reset_password_router(),
 )

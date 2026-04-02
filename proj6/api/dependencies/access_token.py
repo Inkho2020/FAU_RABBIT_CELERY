@@ -1,6 +1,7 @@
 from fastapi import Depends
 from core.database import db_session
 from core.models.access_token_model import AccessToken
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from typing import TYPE_CHECKING, Annotated
 

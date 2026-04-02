@@ -1,4 +1,6 @@
+import logging
 from pathlib import Path
+from typing import Literal
 
 from pydantic_settings import (
     BaseSettings,
@@ -7,14 +9,19 @@ from pydantic_settings import (
 from pydantic import BaseModel
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_DEFAULT_FORMAT = (
+    "[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s"
+)
 
 
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
+    v1: str = "/v1"
+    auth: str = "/auth"
 
     @property
     def bearer_token_url(self):
-        parts = (self.prefix, "/login")
+        parts = (self.v1, self.auth, "/login")
         path = "".join(parts)
         return path[1:]
 
@@ -32,6 +39,21 @@ class AccessToken(BaseModel):
     verification_token: str
 
 
+class LoggingConfig(BaseModel):
+    log_level: Literal[
+        "debug",
+        "info",
+        "warning",
+        "error",
+        "critical",
+    ] = "info"
+    log_format: str = LOG_DEFAULT_FORMAT
+
+    @property
+    def log_level_value(self) -> int:
+        return logging.getLevelNamesMapping()[self.log_level.upper()]
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(BASE_DIR / ".env"),
@@ -42,6 +64,8 @@ class Settings(BaseSettings):
 
     db: DatabaseConf
     access_token: AccessToken
+    api: ApiPrefix
+    logging: LoggingConfig = LoggingConfig()
 
 
 settings = Settings()

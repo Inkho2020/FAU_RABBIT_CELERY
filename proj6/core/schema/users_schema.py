@@ -23,7 +23,7 @@ class UserDataRead(UserDataBase):
 
 class UserRead(schemas.BaseUser[UserIDType]):
     model_config = ConfigDict(from_attributes=True)
-    user_data: UserDataRead
+    # user_data: UserDataRead
 
 
 class UserCreate(schemas.BaseUserCreate):

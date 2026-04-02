@@ -1,10 +1,10 @@
 from fastapi import APIRouter
-from core.authentication.user_manager import fastapi_users
+from api.routers.fau import fastapi_users
 from core import UserRead, UserUpdate
 
 router = APIRouter(
     tags=["USERS"],
-    prefix="users",
+    prefix="/users",
 )
 
 

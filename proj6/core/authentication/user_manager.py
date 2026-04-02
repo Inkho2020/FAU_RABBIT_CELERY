@@ -4,13 +4,10 @@ from fastapi_users import (
     BaseUserManager,
     IntegerIDMixin,
     models,
-    FastAPIUsers,
 )
 
 from core.models.users_model import User
 from core.config import UserIDType, settings
-from api.dependencies.user_manager_depends import get_user_manager
-from api.dependencies.backend import authentication_backend
 
 from typing import TYPE_CHECKING, Optional
 
@@ -53,9 +50,3 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, UserIDType]):
             user.id,
             token,
         )
-
-
-fastapi_users = FastAPIUsers[User, UserIDType](
-    get_user_manager,
-    [authentication_backend],
-)

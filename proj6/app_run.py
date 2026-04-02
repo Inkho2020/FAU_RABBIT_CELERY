@@ -10,5 +10,5 @@ log = logging.INFO
 
 
 def run():
-    app = FastAPI()
+    app = FastAPI(prefix=settings.api.prefix)
     return app
