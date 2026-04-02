@@ -7,13 +7,10 @@ from fastapi_users import (
     FastAPIUsers,
 )
 
-from core import (
-    User,
-    UserIDType,
-    get_user_manager,
-    authentication_backend,
-    settings,
-)
+from core.models.users_model import User
+from core.config import UserIDType, settings
+from api.dependencies.user_manager_depends import get_user_manager
+from api.dependencies.backend import authentication_backend
 
 from typing import TYPE_CHECKING, Optional
 
