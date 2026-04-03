@@ -1,0 +1,4 @@
+.venv
+.idea
+email.egg-info/
+proj6/.env
