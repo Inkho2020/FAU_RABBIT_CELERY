@@ -19,19 +19,25 @@ log = logging.getLogger(__name__)
 record_time = datetime.fromtimestamp(int(time()))
 
 
-def produce_message(channel: "BlockingChannel") -> None:
+def declare_queue(
+        channel: "BlockingChannel"
+)->None:
     queue = channel.queue_declare(
         queue=RMQ_ROUTING_KEY,
         durable=True,
     )
     log.info("Declare Queue %s %s", RMQ_ROUTING_KEY, queue)
-    message_body = f"Hello World {record_time}"
-    log.info("Published message %s", message_body)
+
+
+def produce_message(channel: "BlockingChannel", idx: int) -> None:
+
+    message_body = f"New message No. {idx:02d}"
     channel.basic_publish(
         exchange=RMQ_EXCHANGE,
         routing_key=RMQ_ROUTING_KEY,
         body=message_body,
     )
+    log.warning("Published message %s", message_body)
 
 
 def main():
@@ -40,7 +46,9 @@ def main():
         log.info("Starting connection %s", connection)
         with connection.channel() as channel:
             log.info("Open channel %s", channel)
-            produce_message(channel=channel)
+            declare_queue(channel=channel)
+            for idx in range(3):
+                produce_message(channel=channel, idx=idx)
 
 
 if __name__ == "__main__":
