@@ -34,17 +34,24 @@ def process_new_message(
     log.info("method: %s", method)
     log.info("properties: %s", properties)
     log.info("body: %s", body)
-
+    log.warning("Start processing message %r", body)
     # проверка доставки сообщения, auto_act может закрыть task без подтверждения
+    # если есть подтверждение, то auto_act дергает пустое сообщение
     channel.basic_ack(delivery_tag=method.delivery_tag)
     log.warning("Finished processing message %r", body)
 
 
 def consumer_message(channel: "BlockingChannel") -> None:
+    # basic_qos(prefetch_counts)кол-во потребления задач за 1 раз, влияет на загруженность,
+    # если запускать несколько консьюмеров одновременно, auto_ack должен быть False, basic.ack = True
+    # auto_ack распределяет кол-во task, basic.act распределяет загруженность
+    channel.basic_qos(prefetch_count=1)
     channel.basic_consume(
         queue=RMQ_ROUTING_KEY,
         on_message_callback=process_new_message,
-        auto_ack=True,
+        # auto_ack=True,
+        # auto_ack отдает все задачи из очереди первому consumer,
+        # либо при полной очереди распределяет задачи по количеству(round robin), а не по нагрузке
     )
     log.warning("Waiting for messages")
     channel.start_consuming()
