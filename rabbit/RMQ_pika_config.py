@@ -2,6 +2,9 @@ import logging
 
 import pika
 
+# DEFAULT_LOG_FORMAT = "%(asctime)s.%(msecs)03d] %(funcName)10s:%(module)s:%(lineno)-3d %(levelname)-7s - %(message)s"
+DEFAULT_LOG_FORMAT = "%(module)s:%(lineno)-3d %(levelname)-6s - %(message)s"
+
 RMQ_HOST = "localhost"
 RMQ_PORT = 5672
 
@@ -32,9 +35,13 @@ def get_connection() -> pika.BlockingConnection:
     )
 
 
-def config_logging(level: int = logging.INFO):
+def config_logging(
+        level: int = logging.INFO,
+        pika_log_level:int = logging.WARNING,
+):
     logging.basicConfig(
         level=level,
         datefmt="%Y-%m-%d %H:%M:%S",
-        format="[%(asctime)s.%(msecs)03d] %(funcName)10s:%(module)s:%(lineno)-3d %(levelname)-7s - %(message)s",
+        format=DEFAULT_LOG_FORMAT,
     )
+    logging.getLogger("pika").setLevel(pika_log_level)
