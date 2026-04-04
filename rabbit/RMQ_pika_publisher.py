@@ -47,7 +47,7 @@ def main():
         with connection.channel() as channel:
             log.info("Open channel %s", channel)
             declare_queue(channel=channel)
-            for idx in range(3):
+            for idx in range(1, 4):
                 produce_message(channel=channel, idx=idx)
 
 
