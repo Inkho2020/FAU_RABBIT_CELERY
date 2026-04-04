@@ -9,8 +9,12 @@ RMQ_USER = "wohus"
 RMQ_PASS = "pass"
 
 RMQ_EXCHANGE = ""
-RMQ_ROUTING_KEY = "hello"
+RMQ_ROUTING_KEY = "Queue_kye_name"
 
+RMQ_EMAIL_UPDATES_EXCHANGE_NAME = "email-updates"
+
+RMQ_QUEUE_NAME_KYC_EMAIL_UPDATES = "kyc-email-updates"
+RMQ_QUEUE_NAME_NEWSLETTER_EMAIL_UPDATES = "newsletter-email-updates"
 
 connection_params = pika.ConnectionParameters(
     host=RMQ_HOST,
