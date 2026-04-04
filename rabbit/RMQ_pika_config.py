@@ -12,7 +12,10 @@ RMQ_USER = "wohus"
 RMQ_PASS = "pass"
 
 RMQ_EXCHANGE = ""
-RMQ_ROUTING_KEY = "Queue_kye_name"
+RMQ_ROUTING_KEY = "Queue_Key"
+
+RMQ_DEAD_LETTER_EXCHANGE = "dlq-exchange"
+RMQ_DEAD_LETTER_KEY = "dlq-key"
 
 RMQ_EMAIL_UPDATES_EXCHANGE_NAME = "email-updates"
 
@@ -36,8 +39,8 @@ def get_connection() -> pika.BlockingConnection:
 
 
 def config_logging(
-        level: int = logging.INFO,
-        pika_log_level:int = logging.WARNING,
+    level: int = logging.INFO,
+    pika_log_level: int = logging.WARNING,
 ):
     logging.basicConfig(
         level=level,
