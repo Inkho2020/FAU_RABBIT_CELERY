@@ -1,4 +1,5 @@
 import logging
+import random
 from datetime import datetime
 from time import time
 
@@ -39,7 +40,18 @@ def process_new_message(
     log.warning("Start processing message %r", body)
     # проверка доставки сообщения, auto_act может закрыть task без подтверждения
     # если есть подтверждение, то auto_act дергает пустое сообщение
-    channel.basic_ack(delivery_tag=method.delivery_tag)
+
+    # Обработка сообщений через nack/reject и ack
+    if random.random() > 0.7:
+        log.info("---Process finished message %r, sending nack!", body)
+        channel.basic_nack(delivery_tag=method.delivery_tag)
+        # log.info("---Process finished message %r, sending nack(NO REQUEUE)!", body)
+        # channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+        # log.info("---Process finished message %r, sending REJECT!", body)
+        # channel.basic_reject(delivery_tag=method.delivery_tag, requeue=True)
+    else:
+        log.info("+++ Process finished message %r, sending ack!", body)
+        channel.basic_ack(delivery_tag=method.delivery_tag)
     log.warning("Finished processing message %r", body)
 
 
@@ -64,7 +76,7 @@ def consumer_message(channel: "BlockingChannel") -> None:
 
 
 def main():
-    config_logging(level=logging.WARNING)
+    config_logging(level=logging.INFO)
     with RabbitBase() as broker:
         log.info("Starting connection %s", broker)
         log.info("Open channel %s", broker.channel)
