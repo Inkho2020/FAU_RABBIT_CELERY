@@ -9,10 +9,12 @@ from pika.spec import (
 
 from RMQ_pika_config import (
     config_logging,
-    get_connection,
-    RMQ_EXCHANGE,
+    # RMQ_EXCHANGE,
     RMQ_ROUTING_KEY,
 )
+
+from base import RabbitBase
+
 
 from typing import TYPE_CHECKING
 
@@ -46,6 +48,10 @@ def consumer_message(channel: "BlockingChannel") -> None:
     # если запускать несколько консьюмеров одновременно, auto_ack должен быть False, basic.ack = True
     # auto_ack распределяет кол-во task, basic.act распределяет загруженность
     channel.basic_qos(prefetch_count=1)
+    channel.queue_declare(
+        RMQ_ROUTING_KEY,
+        durable=True,
+    )
     channel.basic_consume(
         queue=RMQ_ROUTING_KEY,
         on_message_callback=process_new_message,
@@ -59,11 +65,10 @@ def consumer_message(channel: "BlockingChannel") -> None:
 
 def main():
     config_logging(level=logging.WARNING)
-    with get_connection() as connection:
-        log.info("Starting connection %s", connection)
-        with connection.channel() as channel:
-            log.info("Open channel %s", channel)
-            consumer_message(channel=channel)
+    with RabbitBase() as broker:
+        log.info("Starting connection %s", broker)
+        log.info("Open channel %s", broker.channel)
+        consumer_message(channel=broker.channel)
 
 
 if __name__ == "__main__":
