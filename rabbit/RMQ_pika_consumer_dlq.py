@@ -32,7 +32,7 @@ def process_new_message(
     log.info("properties: %s", properties)
     log.info("body: %s", body)
     log.warning("Start processing message %r", body)
-    if random.random() > 0.5:
+    if random.random() > 0.9:
         # log.info("---Process finished message %r, sending nack!", body)
         # channel.basic_nack(delivery_tag=method.delivery_tag)
         log.info("---Process finished message %r, sending nack(NO REQUEUE)!", body)
