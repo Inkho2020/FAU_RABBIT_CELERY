@@ -26,11 +26,11 @@ class SimpleRabbitMixin:
     channel: "BlockingChannel"
 
     def declare_queue(self) -> None:
-        # fanout запускает все во все очереди и dlq сообщения попадают в рабочий queue
-        # self.channel.exchange_declare(
-        #     exchange=Config.RMQ_DEAD_LETTER_EXCHANGE,
-        #     exchange_type=ExchangeType.fanout,
-        # )
+        self.channel.exchange_declare(
+            exchange=Config.RMQ_DEAD_LETTER_EXCHANGE,
+            exchange_type=ExchangeType.fanout,          # для fanout необходимо указать имя exchange без ключей
+            # exchange_type=ExchangeType.topic,
+        )
         dlq = self.channel.queue_declare(
             queue=Config.RMQ_DEAD_LETTER_KEY,
             durable=True,
@@ -38,14 +38,15 @@ class SimpleRabbitMixin:
         self.channel.queue_bind(
             queue=dlq.method.queue,
             exchange=Config.RMQ_DEAD_LETTER_EXCHANGE,
+            # routing_key=Config.RMQ_DEAD_LETTER_KEY,         # важно для topic
         )
         log.info("Created dlq: %s", dlq.method.queue)
         queue = self.channel.queue_declare(
             queue=Config.RMQ_ROUTING_KEY,
             durable=True,
             arguments={
-                "x-dead-letter-exchange": Config.RMQ_EXCHANGE,
-                # "x-dead-letter-routing-key": Config.RMQ_DEAD_LETTER_KEY,
+                "x-dead-letter-exchange": Config.RMQ_DEAD_LETTER_EXCHANGE,
+                # "x-dead-letter-routing-key": Config.RMQ_DEAD_LETTER_KEY,          # важно для topic
             }
 
         )

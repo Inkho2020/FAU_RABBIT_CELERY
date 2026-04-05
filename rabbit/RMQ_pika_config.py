@@ -11,16 +11,16 @@ RMQ_PORT = 5672
 RMQ_USER = "wohus"
 RMQ_PASS = "pass"
 
-RMQ_EXCHANGE = ""
-RMQ_ROUTING_KEY = "Queue_Key"
+RMQ_EXCHANGE = ""               # Name of main exchange
+RMQ_ROUTING_KEY = "Queue_Key"   # Name of queue / name of key to queue
+
+RMQ_QUEUE_NAME_KYC_EMAIL_UPDATES = "kyc-email-updates" # specified exchanged name
+RMQ_QUEUE_NAME_NEWSLETTER_EMAIL_UPDATES = "newsletter-email-updates" # name of queue for emails
 
 RMQ_DEAD_LETTER_EXCHANGE = "dlq-exchange"
-RMQ_DEAD_LETTER_KEY = "dlq-key"
+RMQ_DEAD_LETTER_KEY = "dlq-messages"
 
 RMQ_EMAIL_UPDATES_EXCHANGE_NAME = "email-updates"
-
-RMQ_QUEUE_NAME_KYC_EMAIL_UPDATES = "kyc-email-updates"
-RMQ_QUEUE_NAME_NEWSLETTER_EMAIL_UPDATES = "newsletter-email-updates"
 
 connection_params = pika.ConnectionParameters(
     host=RMQ_HOST,
