@@ -20,7 +20,7 @@ record_time = datetime.fromtimestamp(int(time()))
 
 
 def declare_queue(
-        channel: "BlockingChannel",
+    channel: "BlockingChannel",
 ) -> None:
     queue = channel.queue_declare(
         queue=RMQ_ROUTING_KEY,

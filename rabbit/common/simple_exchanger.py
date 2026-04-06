@@ -28,7 +28,7 @@ class SimpleRabbitMixin:
     def declare_queue(self) -> None:
         self.channel.exchange_declare(
             exchange=Config.RMQ_DEAD_LETTER_EXCHANGE,
-            exchange_type=ExchangeType.fanout,          # для fanout необходимо указать имя exchange без ключей
+            exchange_type=ExchangeType.fanout,  # для fanout необходимо указать имя exchange без ключей
             # exchange_type=ExchangeType.topic,
         )
         dlq = self.channel.queue_declare(
@@ -47,8 +47,7 @@ class SimpleRabbitMixin:
             arguments={
                 "x-dead-letter-exchange": Config.RMQ_DEAD_LETTER_EXCHANGE,
                 # "x-dead-letter-routing-key": Config.RMQ_DEAD_LETTER_KEY,          # важно для topic
-            }
-
+            },
         )
         log.info("Declare Queue: %s", queue.method.queue)
 

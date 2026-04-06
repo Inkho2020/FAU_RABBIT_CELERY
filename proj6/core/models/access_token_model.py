@@ -6,7 +6,7 @@ from fastapi_users_db_sqlalchemy.access_token import (
     SQLAlchemyAccessTokenDatabase,
     SQLAlchemyBaseAccessTokenTable,
 )
-from core.config import UserIDType
+from ..config import UserIDType
 from .base import Base
 
 from typing import TYPE_CHECKING

@@ -1,13 +1,11 @@
 from fastapi import APIRouter, Depends
 
-from api.routers.fau import fastapi_users
-from api.crud.user_crud import (
+from ..routers.fau import fastapi_users
+from ..crud.user_crud import (
     create_user_data,
     get_current_user,
 )
-from core import UserRead, UserUpdate, db_session
-
-from sqlalchemy.ext.asyncio import AsyncSession
+from ...core import UserRead, UserUpdate, db_session
 
 from typing import TYPE_CHECKING
 
@@ -35,7 +33,7 @@ async def add_user_data(
     name: str,
     last_name: str,
     bio: str = None,
-    session: AsyncSession = Depends(db_session.get_db),
+    session: "AsyncSession" = Depends(db_session.get_db),
     user_id: int = Depends(get_current_user),
 ):
     return await create_user_data(

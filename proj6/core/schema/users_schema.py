@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict, constr
-from core import UserIDType
+from ..config import UserIDType
 from fastapi_users import schemas
 
 

@@ -6,8 +6,8 @@ from fastapi_users import (
     models,
 )
 
-from core.models.users_model import User
-from core.config import UserIDType, settings
+from ..models.users_model import User
+from ..config import UserIDType, settings
 
 from typing import TYPE_CHECKING, Optional
 
