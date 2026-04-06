@@ -10,7 +10,7 @@ class UserDataBase(BaseModel):
 
 
 class UserDataCreate(UserDataBase):
-    pass
+    user_id: int
 
 
 class UserDataUpdate(UserDataBase):
