@@ -1,5 +1,4 @@
 from email.message import EmailMessage
-import asyncio
 import aiosmtplib
 
 
