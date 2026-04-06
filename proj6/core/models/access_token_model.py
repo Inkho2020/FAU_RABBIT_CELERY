@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import ForeignKey
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_users_db_sqlalchemy.access_token import (
     SQLAlchemyAccessTokenDatabase,
@@ -25,5 +24,5 @@ class AccessToken(Base, SQLAlchemyBaseAccessTokenTable[UserIDType]):
     )
 
     @classmethod
-    def get_token_db(cls, session: AsyncSession):
+    def get_token_db(cls, session: "AsyncSession"):
         return SQLAlchemyAccessTokenDatabase(session, cls)

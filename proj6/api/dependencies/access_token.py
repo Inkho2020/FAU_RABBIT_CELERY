@@ -1,6 +1,6 @@
 from fastapi import Depends
-from ...core.database import db_session
-from ...core.models.access_token_model import AccessToken
+from core.database import db_session
+from core.models.access_token_model import AccessToken
 
 from typing import TYPE_CHECKING, Annotated
 

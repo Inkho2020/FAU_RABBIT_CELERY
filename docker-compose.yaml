@@ -12,5 +12,28 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  maildev:
+    image: maildev/maildev
+    environment:
+      - TZ=Europe/Chishinau
+      - MAILDEV_WEB_PORT=1080
+      - MAIL_DEV_SMTP_PORT=1025
+    ports:
+      - "8080:1080"
+      - "1025:1025"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+
+  pg:
+    image: postgres
+    environment:
+      POSTGRES_DB: proj6
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+
 volumes:
   rabbitmq-data:

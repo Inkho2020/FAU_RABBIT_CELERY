@@ -12,9 +12,8 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ...core import User, AccessToken, db_session
-from ...core.models.users_model import UserData
-from ...core.config import settings
+from core import User, AccessToken, db_session, settings
+from core.models.users_model import UserData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.api.bearer_token_url)
 
@@ -40,7 +39,7 @@ async def get_current_user(
 async def create_user_data(
     name: str,
     last_name: str,
-    bio: str,
+    bio: str | None,
     session: AsyncSession,
     user_id: int,
 ):

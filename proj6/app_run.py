@@ -1,5 +1,5 @@
 import logging
-from .core.config import settings
+from core.config import settings
 from fastapi import FastAPI
 
 logging.basicConfig(
