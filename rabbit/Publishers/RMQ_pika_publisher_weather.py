@@ -2,11 +2,11 @@ import logging
 from datetime import datetime
 from time import time, sleep, strftime
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
 )
 
-from common import WeatherRabbit
+from rabbit.Exchanges import WeatherRabbit
 
 log = logging.getLogger(__name__)
 record_time = datetime.fromtimestamp(int(time()))

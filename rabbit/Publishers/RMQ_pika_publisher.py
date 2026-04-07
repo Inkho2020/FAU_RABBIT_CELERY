@@ -2,7 +2,7 @@ import logging
 from datetime import datetime
 from time import time
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
     get_connection,
     RMQ_EXCHANGE,

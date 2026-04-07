@@ -1,4 +1,4 @@
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     RMQ_EXCHANGE,
     RMQ_ROUTING_KEY,
     RMQ_USER,
@@ -10,12 +10,12 @@ from RMQ_pika_config import (
     connection_params,
     get_connection,
 )
-from base import (
+from rabbit.base import (
     RabbitBase,
     RabbitException,
 )
 
-from . import common
+from . import Exchanges
 
 __all__ = [
     "RabbitBase",

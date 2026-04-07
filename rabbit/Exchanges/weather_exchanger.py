@@ -6,11 +6,11 @@
 
 import logging
 
-import rabbit.RMQ_pika_config as Config
 from typing import TYPE_CHECKING, Callable
 
 
 from rabbit.base import RabbitBase
+from rabbit import RMQ_config as Config
 
 if TYPE_CHECKING:
     from pika.adapters.blocking_connection import BlockingChannel

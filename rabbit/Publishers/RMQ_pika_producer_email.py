@@ -2,9 +2,9 @@ import logging
 from datetime import datetime
 from time import time
 
-from rabbit.common import EmailUpdatesRabbit
+from rabbit.Exchanges import EmailUpdatesRabbit
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
     RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
 )

@@ -6,7 +6,6 @@
 
 import logging
 
-import rabbit.RMQ_pika_config as Config
 from typing import TYPE_CHECKING, Callable
 from pika.exchange_type import ExchangeType
 
@@ -29,7 +28,7 @@ class EmailUpdatesRabbitMixin:
         self,
     ) -> None:
         self.channel.exchange_declare(
-            exchange=Config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
+            exchange=config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
             exchange_type=ExchangeType.fanout,
         )
 
@@ -53,7 +52,7 @@ class EmailUpdatesRabbitMixin:
         )
         q_name = queue.method.queue  # тут генерируется новое имя
         self.channel.queue_bind(
-            exchange=Config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
+            exchange=config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
             queue=q_name,
         )
         return q_name

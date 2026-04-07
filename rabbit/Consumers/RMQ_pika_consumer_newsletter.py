@@ -2,23 +2,30 @@ import logging
 from datetime import datetime
 from time import time, sleep
 
-from RMQ_pika_config import config_logging, RMQ_DLQ_WEATHER_QUEUE_KEY
+from pika.spec import (
+    Basic,
+    BasicProperties,
+)
 
-from rabbit.common import WeatherRabbit
+from rabbit.RMQ_config import (
+    config_logging,
+    RMQ_QUEUE_NAME_NEWSLETTER_EMAIL_UPDATES,
+)
+
+from rabbit.Exchanges import EmailUpdatesRabbit
 
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pika.adapters.blocking_connection import BlockingChannel
-    from pika.spec import Basic, BasicProperties
 
 
 log = logging.getLogger(__name__)
 record_time = datetime.fromtimestamp(int(time()))
 
 
-def process_new_weather(
+def process_new_message(
     channel: "BlockingChannel",
     method: "Basic.Deliver",
     properties: "BasicProperties",
@@ -28,19 +35,21 @@ def process_new_weather(
     log.info("method: %s", method)
     log.info("properties: %s", properties)
     log.info("body: %s", body)
-
-    log.warning("Start reporting weather %r", body)
+    log.warning("Update user email for newsletters %r", body)
+    start_time = time()
     sleep(3)
-    log.warning("Finished reporting weather %r", body)
+    end = time()
+    log.info("GET SOME LETTER")
     channel.basic_ack(delivery_tag=method.delivery_tag)
+    log.warning("Updated user email %r", body)
 
 
 def main():
-    config_logging(level=logging.WARNING)
-    with WeatherRabbit() as broker:
+    config_logging(level=logging.INFO)
+    with EmailUpdatesRabbit() as broker:
         broker.consume_messages(
-            message_callback=process_new_weather,
-            queue_name=RMQ_DLQ_WEATHER_QUEUE_KEY,
+            message_callback=process_new_message,
+            queue_name=RMQ_QUEUE_NAME_NEWSLETTER_EMAIL_UPDATES,  # присваивание имени очереди
         )
 
 

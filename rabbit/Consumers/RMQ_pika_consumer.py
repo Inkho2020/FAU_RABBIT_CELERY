@@ -8,13 +8,13 @@ from pika.spec import (
     BasicProperties,
 )
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
     # RMQ_EXCHANGE,
     RMQ_ROUTING_KEY,
 )
 
-from base import RabbitBase
+from rabbit.base import RabbitBase
 
 
 from typing import TYPE_CHECKING

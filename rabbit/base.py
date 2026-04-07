@@ -1,7 +1,8 @@
 import pika
 from pika import BlockingConnection
 from pika.adapters.blocking_connection import BlockingChannel
-import RMQ_pika_config as Config
+
+from rabbit.RMQ_config import connection_params as conn_param
 
 
 class RabbitException(Exception):
@@ -11,7 +12,7 @@ class RabbitException(Exception):
 class RabbitBase:
     def __init__(
         self,
-        connection_params: pika.ConnectionParameters = Config.connection_params,
+        connection_params: pika.ConnectionParameters = conn_param,
     ) -> None:
         self.connection_params = connection_params
         self._connection: BlockingConnection | None = None

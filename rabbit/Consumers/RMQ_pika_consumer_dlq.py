@@ -3,11 +3,11 @@ import random
 from datetime import datetime
 from time import time
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
 )
 
-from rabbit.common import SimpleRabbit
+from rabbit.Exchanges import SimpleRabbit
 
 
 from typing import TYPE_CHECKING

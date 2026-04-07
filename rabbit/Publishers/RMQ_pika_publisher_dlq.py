@@ -2,13 +2,13 @@ import logging
 from datetime import datetime
 from time import time
 
-from RMQ_pika_config import (
+from rabbit.RMQ_config import (
     config_logging,
     RMQ_EXCHANGE,
     RMQ_ROUTING_KEY,
 )
 
-from rabbit.common.simple_exchanger import SimpleRabbit
+from rabbit.Exchanges import SimpleRabbit
 
 log = logging.getLogger(__name__)
 record_time = datetime.fromtimestamp(int(time()))
