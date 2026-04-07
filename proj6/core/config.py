@@ -6,7 +6,11 @@ from pydantic_settings import (
     BaseSettings,
     SettingsConfigDict,
 )
-from pydantic import BaseModel
+from pydantic import (
+    BaseModel,
+    AmqpDsn,
+    PostgresDsn,
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DEFAULT_FORMAT = (
@@ -26,8 +30,8 @@ class ApiPrefix(BaseModel):
         return path[1:]
 
 
-class DatabaseConf(BaseModel):
-    url: str
+class DatabaseConfig(BaseModel):
+    url: PostgresDsn
     echo: bool
     max_overflow: int
     pool_size: int
@@ -62,7 +66,7 @@ class Settings(BaseSettings):
         env_prefix="APP__",
     )
 
-    db: DatabaseConf
+    db: DatabaseConfig
     access_token: AccessToken
     api: ApiPrefix
     logging: LoggingConfig = LoggingConfig()
