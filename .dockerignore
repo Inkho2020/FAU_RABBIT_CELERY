@@ -1,46 +1,89 @@
-# Виртуальные окружения
-.venv/
-venv/
+# Git
+.git
+.gitignore
+.gitattributes
+
+
+# CI
+.codeclimate.yml
+.travis.yml
+.taskcluster.yml
+
+# Docker
+docker-compose.yml
+Dockerfile
+.docker
+.dockerignore
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
 env/
-
-# Кеши и байткод
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Артефакты сборки и пакетов
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
 *.egg-info/
-.eggs/
+.installed.cfg
 *.egg
 
-# Кеши инструментов
-.mypy_cache/
-.pytest_cache/
-.coverage
-coverage.xml
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
 htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
 
-# Логи
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
 *.log
-logs/
 
-# IDE и редакторы
-.vscode/
-.idea/
-*.swp
-*.swo
+# Sphinx documentation
+docs/_build/
 
-# Системные файлы
-.DS_Store
-Thumbs.db
+# PyBuilder
+target/
 
-# Docker/CI/CD артефакты
-*.tar
-*.zip
-*.gz
-
-# Файлы окружения (если не нужны внутри контейнера)
+# Virtual environment
 .env
+.venv/
+venv/
+
+# PyCharm
+.idea
+
+# Python mode for VIM
+.ropeproject
+**/.ropeproject
+
+# Vim swap files
+**/*.swp
+
+# VS Code
+.vscode/
