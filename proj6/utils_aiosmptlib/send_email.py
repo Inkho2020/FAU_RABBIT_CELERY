@@ -7,7 +7,7 @@ async def send_email(
     subject: str,
     body: str,
 ):
-    admin_email = "admin@admin.com"
+    admin_email = "no_reply@newsletter.com"
 
     message = EmailMessage()
     message["From"] = admin_email
