@@ -12,12 +12,14 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
-  maildev:
+  mail:
     image: maildev/maildev
+    container_name: mail_serv
     environment:
       - TZ=Europe/Chishinau
       - MAILDEV_WEB_PORT=1080
-      - MAIL_DEV_SMTP_PORT=1025
+      - MAILDEV_SMTP_PORT=1025
+      - MAILDEV_HOST=0.0.0.0
     ports:
       - "8080:1080"
       - "1025:1025"

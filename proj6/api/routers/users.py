@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, BackgroundTasks
+from fastapi import APIRouter, Depends
+
+# from fastapi import BackgroundTask
 
 from ..routers.fau import fastapi_users
 from ..crud.user_crud import (
@@ -6,7 +8,9 @@ from ..crud.user_crud import (
     get_current_user,
 )
 from core import UserRead, UserUpdate, db_session
-from utils_aiosmptlib.send_welcome_email import send_welcome_email
+
+# from utils_aiosmptlib.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
+from tasks import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
 
@@ -38,7 +42,7 @@ async def add_user_data(
     ],
     name: str,
     last_name: str,
-    background_tasks: BackgroundTasks,
+    # background_tasks: BackgroundTasks,
     bio: str | None = None,
     user_id: int = Depends(get_current_user),
 ):
@@ -49,9 +53,13 @@ async def add_user_data(
         bio=bio,
         user_id=user_id,
     )
-    background_tasks.add_task(
-        send_welcome_email,
+    await send_welcome_email(
         user_id=user_id,
         session=session,
     )
+    # background_tasks.add_task(
+    #     send_welcome_email,
+    #     user_id=user_id,
+    #     session=session,
+    # )
     return user

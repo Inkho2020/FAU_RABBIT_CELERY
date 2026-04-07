@@ -12,6 +12,7 @@ from .schema.users_schema import UserDataCreate
 from .schema.users_schema import UserDataUpdate
 from .schema.users_schema import UserDataRead
 from .authentication.user_manager import UserManager
+from .taskiq_broker import broker
 
 __all__ = [
     "db_session",
@@ -27,4 +28,5 @@ __all__ = [
     "UserDataCreate",
     "UserDataUpdate",
     "UserManager",
+    "broker",
 ]

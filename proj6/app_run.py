@@ -1,5 +1,11 @@
 import logging
-from core.config import settings
+from typing import AsyncGenerator
+
+from core import (
+    settings,
+    db_session,
+    broker,
+)
 from fastapi import FastAPI
 
 logging.basicConfig(
@@ -9,6 +15,18 @@ logging.basicConfig(
 log = logging.INFO
 
 
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    # startup
+    await broker.startup()
+    yield
+    # shutdown
+    await db_session.dispose()
+    await broker.shutdown()
+
+
 def run():
-    app = FastAPI(prefix=settings.api.prefix)
+    app = FastAPI(
+        prefix=settings.api.prefix,
+        lifespan=lifespan,
+    )
     return app

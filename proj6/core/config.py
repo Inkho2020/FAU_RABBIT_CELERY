@@ -18,6 +18,10 @@ LOG_DEFAULT_FORMAT = (
 )
 
 
+class TaskiqConfig(BaseModel):
+    url: AmqpDsn
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
     v1: str = "/v1"
@@ -70,6 +74,7 @@ class Settings(BaseSettings):
     access_token: AccessToken
     api: ApiPrefix
     logging: LoggingConfig = LoggingConfig()
+    taskiq: TaskiqConfig
 
 
 settings = Settings()
