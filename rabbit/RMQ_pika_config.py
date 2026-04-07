@@ -24,6 +24,12 @@ RMQ_DEAD_LETTER_KEY = "dlq-messages"
 
 RMQ_EMAIL_UPDATES_EXCHANGE_NAME = "email-updates"
 
+RMQ_WEATHER_UPDATE_QUEUE_KEY = "q-weather-updates"
+RMQ_WEATHER_TTL_KEY = 60_000  # TTL of 60 sec
+RMQ_WEATHER_TTL_PROPERTY = "60000"  # TTL of 60 sec
+RMQ_DLQ_WEATHER_QUEUE_KEY = "q-expire-weather-updates"
+RMQ_DLQ_WEATHER_TTL_KEY = 90_000  # TTL of 90 sec
+
 connection_params = pika.ConnectionParameters(
     host=RMQ_HOST,
     port=RMQ_PORT,
