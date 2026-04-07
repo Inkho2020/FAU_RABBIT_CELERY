@@ -6,7 +6,7 @@ from ..crud.user_crud import (
     get_current_user,
 )
 from core import UserRead, UserUpdate, db_session
-from utils.send_welcome_email import send_welcome_email
+from utils_aiosmptlib.send_welcome_email import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
 
