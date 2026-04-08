@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Callable
 from pika.exchange_type import ExchangeType
 
 from rabbit.base import RabbitBase
+import rabbit.RMQ_config as Config
 
 if TYPE_CHECKING:
     from pika.adapters.blocking_connection import BlockingChannel
@@ -28,13 +29,13 @@ class EmailUpdatesRabbitMixin:
         self,
     ) -> None:
         self.channel.exchange_declare(
-            exchange=config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
+            exchange=Config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
             exchange_type=ExchangeType.fanout,
         )
 
     def declare_queue_for_email_updates(
         self,
-        queue_name: str = "",
+        queue_name: str = "",   # Config.RMQ_Exchange
         exclusive: bool = True,
         durable: bool = False,
         auto_delete: bool = True,
@@ -52,7 +53,7 @@ class EmailUpdatesRabbitMixin:
         )
         q_name = queue.method.queue  # тут генерируется новое имя
         self.channel.queue_bind(
-            exchange=config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
+            exchange=Config.RMQ_EMAIL_UPDATES_EXCHANGE_NAME,
             queue=q_name,
         )
         return q_name
