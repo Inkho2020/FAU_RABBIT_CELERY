@@ -1,5 +1,8 @@
 import uvicorn
+from fastapi import Request
 import taskiq_fastapi
+from utils_aiosmptlib_web.web_templates import templates
+
 from app_run import run
 from api import router as api_router
 from core import broker
@@ -11,9 +14,12 @@ taskiq_fastapi.init(broker, "main:app")
 app.include_router(api_router)
 
 
-@app.get("/")
-def index():
-    return {"message": "Hello email"}
+@app.get("/", name="home")
+def index(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+    )
 
 
 if __name__ == "__main__":

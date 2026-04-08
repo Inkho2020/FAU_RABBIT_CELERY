@@ -5,7 +5,7 @@ UPDATE
 DELETE
 """
 
-from typing import Annotated
+from typing import Annotated, Sequence
 
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -16,6 +16,14 @@ from core import User, AccessToken, db_session, settings, UserDataCreate
 from core.models.users_model import UserData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.api.bearer_token_url)
+
+
+async def get_all_users(
+    session: AsyncSession,
+) -> Sequence[User]:
+    stmt = select(User).order_by(User.id)
+    result = await session.scalars(stmt)
+    return result.all()
 
 
 async def get_user(

@@ -1,4 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import (
+    APIRouter,
+    Depends,
+    Request,
+)
 
 # from fastapi import BackgroundTask
 
@@ -6,10 +10,12 @@ from ..routers.fau import fastapi_users
 from ..crud.user_crud import (
     create_user_data,
     get_current_user_id,
+    get_all_users,
 )
 from core import UserRead, UserUpdate, db_session
 
-# from utils_aiosmptlib.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
+# from utils_aiosmptlib_web.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
+from utils_aiosmptlib_web.web_templates import templates
 from tasks import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
@@ -62,3 +68,19 @@ async def add_user_data(
     #     session=session,
     # )
     return user
+
+
+@router.get("/", name="users:list")
+async def users_list(
+    request: Request,
+    session: Annotated[
+        "AsyncSession",
+        Depends(db_session.get_db),
+    ],
+):
+    query = await get_all_users(session)
+    return templates.TemplateResponse(
+        request=request,
+        name="users.html",
+        context={"users": query},
+    )
