@@ -40,6 +40,8 @@ RMQ_DLX_FAILED_PAINT_BUTTON = "dlx-failed-to-paint-button-tasks"
 RMQ_DLQ_FAILED_PAINT_BUTTON = "dlq-failed-to-paint-button-tasks"
 RMQ_FAILED_PAINT_BUTTON_RETRY_SEC = 5_000
 
+RMQ_QUEUE_NOT_SOLVE_TASKS = "not-solved-tasks"
+
 connection_params = pika.ConnectionParameters(
     host=RMQ_HOST,
     port=RMQ_PORT,

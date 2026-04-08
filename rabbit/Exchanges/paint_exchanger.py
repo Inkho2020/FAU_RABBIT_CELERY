@@ -39,6 +39,14 @@ class PaintRabbitMixin:
         )
         log.info("Published message %s", text)
 
+    def declare_nsq(self) -> str:
+        nsq = self.channel.queue_declare(
+            queue=Config.RMQ_QUEUE_NOT_SOLVE_TASKS,
+            durable=True,
+        )
+        log.info("Declare nsq: %s", nsq.method.queue)
+        return nsq.method.queue
+
     def declare_dlq(self) -> str:
         self.channel.exchange_declare(
             exchange=Config.RMQ_DLX_FAILED_PAINT_BUTTON,
@@ -85,6 +93,7 @@ class PaintRabbitMixin:
         return paint_queue.method.queue
 
     def declare_queue(self) -> None:
+        self.declare_nsq()
         self.declare_dlq()
         self.declare_main_queue()
 

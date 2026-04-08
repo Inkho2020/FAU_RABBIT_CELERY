@@ -22,7 +22,7 @@ def main():
     config_logging(level=logging.INFO)
     with Publisher() as publisher:
         publisher.declare_queue()
-        for idx in range(1, 20):
+        for idx in range(1, 50):
             publisher.produce_message(idx=idx)
             sleep(0.1)
 
