@@ -18,7 +18,14 @@ from core.models.users_model import UserData
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.api.bearer_token_url)
 
 
-async def get_current_user(
+async def get_user(
+    session: AsyncSession,
+    user_id: int,
+) -> User | None:
+    return await session.get(User, user_id)
+
+
+async def get_current_user_id(
     session: Annotated[
         AsyncSession,
         Depends(db_session.get_db),

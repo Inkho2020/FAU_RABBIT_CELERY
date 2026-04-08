@@ -5,10 +5,8 @@ from core import User
 
 
 async def send_welcome_email(
-    user_id: int,
-    session: AsyncSession,
+    user: User,
 ):
-    user = await session.get(User, user_id)
     topic = f"Welcome, {user.user_data.name}"
     letter_body = f"Dear, {user.user_data.name}, \n\nThank you for choosing our service"
 

@@ -16,10 +16,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DEFAULT_FORMAT = (
     "[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s"
 )
+WORKER_LOG_DEFAULT_FORMAT = "[%(asctime)s.%(msecs)03d][%(processName)s] %(module)16s:%(lineno)-3d %(levelname)-7s - %(message)s"
 
 
 class TaskiqConfig(BaseModel):
     url: AmqpDsn
+    log_format: str = WORKER_LOG_DEFAULT_FORMAT
 
 
 class ApiPrefix(BaseModel):

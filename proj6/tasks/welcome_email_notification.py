@@ -1,10 +1,11 @@
 import logging
 from typing import Annotated
 
-from fastapi import Depends
+from taskiq import TaskiqDepends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core import db_session, broker
+from api.crud.user_crud import get_user
+from core import db_session, broker, User
 from utils_aiosmptlib.send_welcome_email import send_welcome_email as send
 
 log = logging.getLogger(__name__)
@@ -15,14 +16,14 @@ async def send_welcome_email(
     user_id: int,
     session: Annotated[
         AsyncSession,
-        Depends(db_session.get_db),
+        TaskiqDepends(db_session.get_db),
     ],
 ):
+    user: User = await get_user(session=session, user_id=user_id)
     log.info(
         "Sending welcome email to user %s",
         user_id,
     )
     await send(
-        user_id=user_id,
-        session=session,
+        user,
     )

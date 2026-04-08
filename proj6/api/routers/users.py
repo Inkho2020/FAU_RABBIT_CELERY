@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 from ..routers.fau import fastapi_users
 from ..crud.user_crud import (
     create_user_data,
-    get_current_user,
+    get_current_user_id,
 )
 from core import UserRead, UserUpdate, db_session
 
@@ -44,7 +44,7 @@ async def add_user_data(
     last_name: str,
     # background_tasks: BackgroundTasks,
     bio: str | None = None,
-    user_id: int = Depends(get_current_user),
+    user_id: int = Depends(get_current_user_id),
 ):
     user = await create_user_data(
         session=session,
@@ -53,9 +53,8 @@ async def add_user_data(
         bio=bio,
         user_id=user_id,
     )
-    await send_welcome_email(
+    await send_welcome_email.kiq(
         user_id=user_id,
-        session=session,
     )
     # background_tasks.add_task(
     #     send_welcome_email,

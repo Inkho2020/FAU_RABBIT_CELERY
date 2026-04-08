@@ -17,16 +17,16 @@ log = logging.INFO
 
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # startup
-    await broker.startup()
+    if not broker.is_worker_process:
+        await broker.startup()
     yield
     # shutdown
-    await db_session.dispose()
+    if not broker.is_worker_process:
+        await db_session.dispose()
     await broker.shutdown()
 
 
 def run():
-    app = FastAPI(
-        prefix=settings.api.prefix,
+    return FastAPI(
         lifespan=lifespan,
     )
-    return app
