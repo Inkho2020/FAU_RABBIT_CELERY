@@ -35,7 +35,7 @@ class EmailUpdatesRabbitMixin:
 
     def declare_queue_for_email_updates(
         self,
-        queue_name: str = "",   # Config.RMQ_Exchange
+        queue_name: str = "",  # Config.RMQ_Exchange
         exclusive: bool = True,
         durable: bool = False,
         auto_delete: bool = True,
