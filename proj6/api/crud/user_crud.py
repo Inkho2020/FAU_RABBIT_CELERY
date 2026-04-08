@@ -51,24 +51,22 @@ async def get_current_user_id(
     return access_token.user_id
 
 
-async def create_user_data(
+async def update_user_data(
     session: AsyncSession,
     name: str,
     last_name: str,
     bio: str | None,
     user_id: int,
 ):
-    payload = {
-        "name": name,
-        "last_name": last_name,
-        "bio": bio,
-        "user_id": user_id,
-    }
-    user_data = UserDataCreate(**payload)
+    user = await get_user(
+        session=session,
+        user_id=user_id,
+    )
+    user.user_data.name = name
+    user.user_data.last_name = name
+    user.user_data.bio = bio
 
-    user_data = UserData(**user_data.model_dump())
-    session.add(user_data)
     await session.commit()
-    user = await session.get(User, user_id)
+    await session.refresh(user)
 
     return user

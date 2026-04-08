@@ -8,7 +8,7 @@ from fastapi import (
 
 from ..routers.fau import fastapi_users
 from ..crud.user_crud import (
-    create_user_data,
+    update_user_data,
     get_current_user_id,
     get_all_users,
 )
@@ -52,7 +52,7 @@ async def add_user_data(
     bio: str | None = None,
     user_id: int = Depends(get_current_user_id),
 ):
-    user = await create_user_data(
+    user = await update_user_data(
         session=session,
         name=name,
         last_name=last_name,
