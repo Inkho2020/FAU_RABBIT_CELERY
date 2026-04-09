@@ -2,7 +2,7 @@ from textwrap import dedent
 
 from core import User
 from utils_aiosmptlib_web.send_email import send_new_email
-from utils_aiosmptlib_web.web_templates import templates
+from utils_aiosmptlib_web.web_template import templates
 
 
 async def send_verification_email(
@@ -18,11 +18,11 @@ async def send_verification_email(
         Please follow the link to veriry your email.
         {verification_link}
         
-        User this code to verify you email:
-        {verification_token}       
-        
         Your WOHUS,  
         """)
+    #
+    # User this code to verify you email:
+    # {verification_token}
     template = templates.get_template("get_email_verification.html")
     context = {
         "user": user,
