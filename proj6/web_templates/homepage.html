@@ -1,0 +1,69 @@
+{% extends 'base_home.html' %}
+
+{% block title %}
+ Home
+{% endblock %}
+
+{% block main %}
+    <h1>
+        User info
+    </h1>
+    <ul class="list-group my-4">
+        <li class="list-group-item">
+           <strong>E-mail:</strong>
+            <code>{{ user.email }}</code>
+        </li>
+        <li class="list-group-item">
+           <strong>Verified</strong>
+            {% if user.is_verified %}
+                <span class="badge text-bg-success">Yes</span>
+            {% else %}
+                <span class="badge text-bg-warning">No</span>
+            {% endif %}
+        </li>
+    </ul>
+    {% if not user.is_verified %}
+    <div>
+    <button
+            id="verify-button"
+            type="button"
+            class="btn btn-primary"
+    >Verify email
+    </button>
+    </div>
+    <div
+            id="loading-indicator"
+            class="spinner-border my-3 d-none"
+            role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <div id="verification-email-sent" class="alert d-none alert-success my-3">
+        <h5 class="alert-heading">
+            Verification request has been sent
+        </h5>
+        Please check your e-mail and click on the verification link
+    </div>
+    <div id="verification-request_error" class="alert d-none alert-danger my-3">
+        <h5 class="alert-heading">
+            Failed to send verification email
+        </h5>
+        Please try again later.
+    </div>
+    <script>
+        const requestVerificationURL = "{{ url_for('verify:request-token') }}";
+
+        const verifyButton = document.getElementById("verify-button");
+        const loadingIndicator = document.getElementById("loading-indicator");
+        const verificationEmailSent = document.getElementById("verification-email-sent");
+        const verificationRequestError = document.getElementById("verification-request_error");
+
+        verifyButton.addEventListener("click", async () => {
+            verifyButton.classList.add("d-none");
+            loadingIndicator.classList.remove("d-none");
+        });
+    </script>
+
+
+    {% endif %}
+{% endblock %}
