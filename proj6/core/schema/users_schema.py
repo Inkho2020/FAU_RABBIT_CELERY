@@ -32,7 +32,8 @@ class UserCreate(schemas.BaseUserCreate):
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    user_data: UserDataCreate
+    # user_data: UserDataCreate
+    pass
 
 
 class UserRegisteredNotification(BaseModel):
