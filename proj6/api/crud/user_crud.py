@@ -62,8 +62,8 @@ async def update_user_data(
         session=session,
         user_id=user_id,
     )
-    user.user_data.name = name
-    user.user_data.last_name = name
+    user.user_data.name = name.title()
+    user.user_data.last_name = name.title()
     user.user_data.bio = bio
 
     await session.commit()

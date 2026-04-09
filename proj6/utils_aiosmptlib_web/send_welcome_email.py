@@ -12,7 +12,7 @@ async def send_welcome_email(
     if not name:
         topic = f"Welcome, {user.user_data.last_name}"
         name = user.user_data.last_name
-    elif not user.user_data.last_name:
+    elif not name and not user.user_data.last_name:
         topic = f"Welcome, Sir/Madam"
         name = "Sirs"
     letter_body = f"Dear, {name}, \n\nThank you for choosing our service"
