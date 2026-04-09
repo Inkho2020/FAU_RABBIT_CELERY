@@ -12,8 +12,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core import User, AccessToken, db_session, settings, UserDataCreate
-from core.models.users_model import UserData
+from core import User, AccessToken, db_session, settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.api.bearer_token_url)
 
@@ -33,6 +32,7 @@ async def get_user(
     return await session.get(User, user_id)
 
 
+# take token rom bearer token in headers. For cookies needs another algorithm
 async def get_current_user_id(
     session: Annotated[
         AsyncSession,
@@ -63,7 +63,7 @@ async def update_user_data(
         user_id=user_id,
     )
     user.user_data.name = name.title()
-    user.user_data.last_name = name.title()
+    user.user_data.last_name = last_name.title()
     user.user_data.bio = bio
 
     await session.commit()
