@@ -2,7 +2,7 @@ from textwrap import dedent
 
 from core import User
 from utils_aiosmptlib_web.send_email import send_new_email
-from utils_aiosmptlib_web.web_templates import templates
+from utils_aiosmptlib_web.web_template import templates
 
 
 async def send_email_confirmation(
