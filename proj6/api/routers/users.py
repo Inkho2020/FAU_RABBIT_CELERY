@@ -6,16 +6,17 @@ from fastapi import (
 
 # from fastapi import BackgroundTask
 
-from ..routers.fau import fastapi_users
+from core.authentication.fau import fastapi_users
 from ..crud.user_crud import (
     update_user_data,
     get_current_user_id,
     get_all_users,
 )
 from core import UserRead, UserUpdate, db_session
+from core.authentication.fau import current_active_user
 
 # from utils_aiosmptlib_web.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
-from utils_aiosmptlib_web.web_templates import templates
+from utils_aiosmptlib_web.web_template import templates
 from tasks import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
@@ -50,7 +51,10 @@ async def add_user_data(
     last_name: str | None = None,
     # background_tasks: BackgroundTasks,
     bio: str | None = None,
-    user_id: int = Depends(get_current_user_id),
+    user_id: int = Depends(get_current_user_id),  # take user id from bearer token
+    # user_id: int = Depends(
+    #     current_active_user_id
+    # ),  # take user information from headers/cookies.
 ):
     user = await update_user_data(
         session=session,
