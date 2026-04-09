@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ EMAIL Verification
+{% endblock %}
+
+{% block body %}
+    <h1>Verify your email</h1>
+<p>
+    Dear {{ user.email }},
+</p>
+<p>
+    To verify your email, please follow the link:
+    <a href="{{ verification_link }}">Confirm email</a>
+</p>
+    <br>
+    And use this token to verify your email address:
+    <br>
+<code>{{ verification_token }}</code>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ EMAIL Confirmation
+{% endblock %}
+
+{% block body %}
+    <h1>Confirmation of email address</h1>
+<p>
+    Dear {{ user.email }},
+</p>
+<p>
+  Your email was successfully verified.
+</p>
+
+{% endblock %}
