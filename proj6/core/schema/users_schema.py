@@ -4,8 +4,8 @@ from fastapi_users import schemas
 
 
 class UserDataBase(BaseModel):
-    name: str | None = constr(min_length=1, max_length=120)
-    last_name: str | None = constr(min_length=1, max_length=320)
+    name: constr(min_length=1, max_length=120) | None = None
+    last_name: constr(min_length=1, max_length=320) | None = None
     bio: str | None = None
 
 
