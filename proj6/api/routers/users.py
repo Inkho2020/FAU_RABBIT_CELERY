@@ -13,7 +13,8 @@ from ..crud.user_crud import (
     get_all_users,
 )
 from core import UserRead, UserUpdate, db_session
-from core.authentication.fau import current_active_user
+
+# from core.authentication.fau import current_active_user
 
 # from utils_aiosmptlib_web.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
 from utils_aiosmptlib_web.web_template import templates
