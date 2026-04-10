@@ -7,8 +7,8 @@ from utils_aiosmptlib_web.web_template import templates
 
 async def send_verification_email(
     user: User,
-    verification_token: str,
     verification_link: str,
+    # verification_token: str,
 ):
     recipient = user.email
     subject = "Confirm your registration"
@@ -27,7 +27,7 @@ async def send_verification_email(
     context = {
         "user": user,
         "verification_link": verification_link,
-        "verification_token": verification_token,
+        # "verification_token": verifcation_token,
     }
     html_content = template.render(context)
     await send_new_email(

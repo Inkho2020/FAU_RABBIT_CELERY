@@ -50,20 +50,35 @@
         </h5>
         Please try again later.
     </div>
-    <script>
-        const requestVerificationURL = "{{ url_for('verify:request-token') }}";
+        <script>
+            const requestVerificationURL = "{{ url_for('verify:request-token') }}";
 
-        const verifyButton = document.getElementById("verify-button");
-        const loadingIndicator = document.getElementById("loading-indicator");
-        const verificationEmailSent = document.getElementById("verification-email-sent");
-        const verificationRequestError = document.getElementById("verification-request_error");
+            const verifyButton = document.getElementById("verify-button");
+            const loadingIndicator = document.getElementById("loading-indicator");
+            const verificationEmailSent = document.getElementById("verification-email-sent");
+            const verificationRequestError = document.getElementById("verification-request_error");
 
-        verifyButton.addEventListener("click", async () => {
-            verifyButton.classList.add("d-none");
-            loadingIndicator.classList.remove("d-none");
-        });
-    </script>
+            verifyButton.addEventListener("click", async () => {
+                verifyButton.classList.add("d-none");
+                loadingIndicator.classList.remove("d-none");
 
+                const response = await fetch(requestVerificationURL, {
+                    method: "POST",
+                    body: JSON.stringify({ email: "{{ user.email }}" }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                loadingIndicator.classList.add("d-none");
+
+                if (response.ok) {
+                    verificationEmailSent.classList.remove("d-none");
+                } else {
+                    verificationRequestError.classList.remove("d-none");
+                }
+            });
+        </script>
 
     {% endif %}
 {% endblock %}

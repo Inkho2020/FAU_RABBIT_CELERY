@@ -18,9 +18,11 @@ def home(
     request: Request,
     user: Annotated[User, Depends(current_active_user)],
 ):
-    print(type(user), user)
     return templates.TemplateResponse(
         name="homepage.html",
-        context={"request": request, "user": user},
+        context={
+            "request": request,
+            "user": user,
+        },
         request=request,
     )

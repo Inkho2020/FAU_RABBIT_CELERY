@@ -16,7 +16,6 @@ router.include_router(
         UserCreate,
     ),
 )
-
 # /request-verify-token
 # /verify
 router.include_router(
@@ -24,16 +23,14 @@ router.include_router(
         UserRead,
     ),
 )
-
 # /login
 # /logout
 router.include_router(
     router=fastapi_users.get_auth_router(
         authentication_backend,
-        requires_verification=True,
+        requires_verification=False,
     ),
 )
-
 
 # /forgot-password
 # /reset-password
