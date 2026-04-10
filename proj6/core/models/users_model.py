@@ -8,10 +8,11 @@ from fastapi_users_db_sqlalchemy import (
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from .base import Base
+from .mixins import CreatedAtMixin
 from ..config import UserIDType
 
 
-class User(Base, SQLAlchemyBaseUserTable[UserIDType]):
+class User(Base, SQLAlchemyBaseUserTable[UserIDType], CreatedAtMixin):
     pass
 
     @classmethod
