@@ -18,7 +18,7 @@ from core import UserRead, UserUpdate, db_session
 
 # from utils_email_jinja.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
 from utils_email_jinja.web_template import templates
-from taskiq_utils import send_welcome_email
+from taskiq_tasks import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
 
