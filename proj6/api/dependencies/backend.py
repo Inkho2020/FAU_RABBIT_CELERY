@@ -1,8 +1,8 @@
 from fastapi_users.authentication import AuthenticationBackend
 
 from core.authentication.transport import (
-    bearer_transport,  # нужно в ручную получать токент
-    cookie_transport,  # токен можно достать из заголовков ?????
+    # bearer_transport,  # token: Annotated[str, Depends(oauth2_scheme),]
+    cookie_transport,  # token: str = request.cookies.get("fastapiusersauth")
 )
 from .strategy import get_database_strategy
 
