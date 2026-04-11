@@ -1,6 +1,6 @@
 import random
 
-from utils_aiosmptlib_web.send_email import send_email
+from utils_email_jinja.send_email import send_email
 
 
 def fetch_user_info(user_ids: list[int]) -> list[tuple[str, str]]:

@@ -34,13 +34,13 @@ RMQ_DLQ_WEATHER_QUEUE_KEY = "q-expire-weather-updates"
 # DLQ TTL QUEUE
 RMQ_DLQ_WEATHER_TTL_KEY = 90_000  # TTL of 90 sec
 
-RMQ_EXCHANGE_PAINT_BUTTON = "x-paint-button-tasks"
-RMQ_QUEUE_PAINT_BUTTON = "q-paint-button-tasks"
-RMQ_DLX_FAILED_PAINT_BUTTON = "dlx-failed-to-paint-button-tasks"
-RMQ_DLQ_FAILED_PAINT_BUTTON = "dlq-failed-to-paint-button-tasks"
+RMQ_EXCHANGE_PAINT_BUTTON = "x-paint-button-taskiq"
+RMQ_QUEUE_PAINT_BUTTON = "q-paint-button-taskiq"
+RMQ_DLX_FAILED_PAINT_BUTTON = "dlx-failed-to-paint-button-taskiq"
+RMQ_DLQ_FAILED_PAINT_BUTTON = "dlq-failed-to-paint-button-taskiq"
 RMQ_FAILED_PAINT_BUTTON_RETRY_SEC = 5_000
 
-RMQ_QUEUE_NOT_SOLVE_TASKS = "not-solved-tasks"
+RMQ_QUEUE_NOT_SOLVE_TASKS = "not-solved-taskiq"
 
 connection_params = pika.ConnectionParameters(
     host=RMQ_HOST,

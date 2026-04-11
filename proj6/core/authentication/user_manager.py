@@ -7,8 +7,8 @@ from fastapi_users import (
 )
 from fastapi_users.db import BaseUserDatabase
 
-from utils_aiosmptlib_web.send_email_confirmation import send_email_confirmation
-from utils_aiosmptlib_web.send_verification_email import send_verification_email
+from utils_email_jinja.send_email_confirmation import send_email_confirmation
+from utils_email_jinja.send_verification_email import send_verification_email
 from ..models.users_model import User
 from ..config import UserIDType, settings
 

@@ -16,9 +16,9 @@ from core import UserRead, UserUpdate, db_session
 
 # from core.authentication.fau import current_active_user
 
-# from utils_aiosmptlib_web.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
-from utils_aiosmptlib_web.web_template import templates
-from tasks import send_welcome_email
+# from utils_email_jinja.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
+from utils_email_jinja.web_template import templates
+from taskiq import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
 

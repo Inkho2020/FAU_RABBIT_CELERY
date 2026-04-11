@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 
-from utils_aiosmptlib_web.web_template import templates
+from utils_email_jinja.web_template import templates
 
 router = APIRouter(
     prefix="/verify-email",

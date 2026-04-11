@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request, Depends
 
 from core import User
 from core.authentication.fau import current_active_user
-from utils_aiosmptlib_web.web_template import templates
+from utils_email_jinja.web_template import templates
 
 router = APIRouter(prefix="/home", tags=["HOMEPAGE"])
 

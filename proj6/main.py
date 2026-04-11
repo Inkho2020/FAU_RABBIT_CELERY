@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import Request
 import taskiq_fastapi
-from utils_aiosmptlib_web.web_template import templates
+from utils_email_jinja.web_template import templates
 
 from app_run import run
 from api import router as api_router

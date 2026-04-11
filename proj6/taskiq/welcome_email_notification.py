@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.crud.user_crud import get_user
 from core import db_session, broker, User
-from utils_aiosmptlib_web.send_welcome_email import send_welcome_email as send
+from utils_email_jinja.send_welcome_email import send_welcome_email as send
 
 log = logging.getLogger(__name__)
 
