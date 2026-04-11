@@ -14,12 +14,14 @@ from ..crud.user_crud import (
     get_all_users,
 )
 from core import UserRead, UserUpdate, db_session
+from core.nats_broker import user_register
 
 # from core.authentication.fau import current_active_user
 
 # from utils_email_jinja.send_welcome_email import send_welcome_email    для прямой работы нужен Backgroundtask
 from utils_email_jinja.web_template import templates
-from taskiq_tasks import send_welcome_email
+
+# from taskiq_tasks import send_welcome_email
 
 from typing import TYPE_CHECKING, Annotated
 
@@ -65,9 +67,18 @@ async def add_user_data(
         bio=bio,
         user_id=user_id,
     )
-    await send_welcome_email.kiq(
-        user_id=user_id,
+    # FASTSTREAM[NATS] TASK
+    await user_register.publish(
+        subject=f"users.{user_id}.create",
+        message=None,
     )
+
+    # TASKIQ TASK
+    # await send_welcome_email.kiq(
+    #     user_id=user_id,
+    # )
+
+    # FASTAPI BACKGROUND TASK
     # background_tasks.add_task(
     #     send_welcome_email,
     #     user_id=user_id,

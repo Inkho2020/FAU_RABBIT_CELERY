@@ -3,7 +3,7 @@ name = "email"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "alembic>=1.18.4",
     "fastapi-users>=15.0.5",
@@ -22,6 +22,7 @@ dependencies = [
     "taskiq-aio-pika>=0.6.0",
     "taskiq-fastapi>=0.4.0",
     "jinja2>=3.1.6",
+    "faststream[nats]",
 ]
 
 [dependency-groups]

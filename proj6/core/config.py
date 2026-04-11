@@ -10,6 +10,7 @@ from pydantic import (
     BaseModel,
     AmqpDsn,
     PostgresDsn,
+    NatsDsn,
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,11 +18,17 @@ LOG_DEFAULT_FORMAT = (
     "[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s"
 )
 WORKER_LOG_DEFAULT_FORMAT = "[%(asctime)s.%(msecs)03d][%(processName)s] %(module)16s:%(lineno)-3d %(levelname)-7s - %(message)s"
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
 class TaskiqConfig(BaseModel):
     url: AmqpDsn
     log_format: str = WORKER_LOG_DEFAULT_FORMAT
+
+
+class NatsConfig(BaseModel):
+    nats_url: NatsDsn
+    log_format: str = LOG_DEFAULT_FORMAT
 
 
 class ApiPrefix(BaseModel):
@@ -58,6 +65,7 @@ class LoggingConfig(BaseModel):
         "critical",
     ] = "info"
     log_format: str = LOG_DEFAULT_FORMAT
+    date_format: str = DATE_FORMAT
 
     @property
     def log_level_value(self) -> int:
@@ -77,6 +85,7 @@ class Settings(BaseSettings):
     api: ApiPrefix
     logging: LoggingConfig = LoggingConfig()
     taskiq: TaskiqConfig
+    nats: NatsConfig
 
 
 settings = Settings()

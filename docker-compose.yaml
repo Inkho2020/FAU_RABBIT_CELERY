@@ -1,16 +1,16 @@
 services:
-  rabbitmq:
-    image: rabbitmq:4.3.0-rc.0-management-alpine
-    hostname: rabbitmq
-    container_name: rabbit
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: "wohus"
-      RABBITMQ_DEFAULT_PASS: "pass"
-    volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
+#  rabbitmq:
+#    image: rabbitmq:4.3.0-rc.0-management-alpine
+#    hostname: rabbitmq
+#    container_name: rabbit
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    environment:
+#      RABBITMQ_DEFAULT_USER: "wohus"
+#      RABBITMQ_DEFAULT_PASS: "pass"
+#    volumes:
+#      - rabbitmq-data:/var/lib/rabbitmq
 
   mail:
     image: maildev/maildev
@@ -28,14 +28,20 @@ services:
       options:
         max-size: "1m"
 
-  pg:
-    image: postgres
-    environment:
-      POSTGRES_DB: proj6
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+#  pg:
+#    image: postgres
+#    environment:
+#      POSTGRES_DB: proj6
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1234
+#    ports:
+#      - "5432:5432"
+
+  nats:
+    image: nats:2.12-alpine
+    container_name: fs_nats
     ports:
-      - "5432:5432"
+      - "4222:4222"
 
 volumes:
   rabbitmq-data:
