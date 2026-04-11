@@ -9,7 +9,8 @@ from fastapi import (
 from core.authentication.fau import fastapi_users
 from ..crud.user_crud import (
     update_user_data,
-    get_current_user_id,
+    # get_current_user_id,
+    get_current_user_id_from_cookie,
     get_all_users,
 )
 from core import UserRead, UserUpdate, db_session
@@ -52,10 +53,10 @@ async def add_user_data(
     last_name: str | None = None,
     # background_tasks: BackgroundTasks,
     bio: str | None = None,
-    user_id: int = Depends(get_current_user_id),  # take user id from bearer token
-    # user_id: int = Depends(
-    #     current_active_user_id
-    # ),  # take user information from headers/cookies.
+    # user_id: int = Depends(get_current_user_id),  # take user id from bearer/headers token
+    user_id: int = Depends(
+        get_current_user_id_from_cookie
+    ),  # take user information from cookies.
 ):
     user = await update_user_data(
         session=session,
