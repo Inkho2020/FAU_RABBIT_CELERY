@@ -7,7 +7,9 @@ from core import (
     broker,
 )
 from core.nats_broker import fs_broker
+from admin import register_admin_views
 from fastapi import FastAPI
+from sqladmin import Admin
 
 logging.basicConfig(
     level=settings.logging.log_level_value,
@@ -31,7 +33,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     await fs_broker.stop()
 
 
-def run():
-    return FastAPI(
+def run() -> FastAPI:
+    app = FastAPI(
         lifespan=lifespan,
     )
+    admin = Admin(
+        app=app,
+        session_maker=db_session.session,
+    )
+    register_admin_views(admin)
+    return app

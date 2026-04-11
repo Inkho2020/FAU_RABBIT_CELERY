@@ -11,6 +11,11 @@ from .base import Base
 from .mixins import CreatedAtMixin
 from ..config import UserIDType
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .access_token_model import AccessToken
+
 
 class User(Base, SQLAlchemyBaseUserTable[UserIDType], CreatedAtMixin):
     pass
@@ -25,6 +30,11 @@ class User(Base, SQLAlchemyBaseUserTable[UserIDType], CreatedAtMixin):
         cascade="all, delete-orphan",
         lazy="joined",
     )
+
+    tokens: Mapped[list["AccessToken"]] = relationship(back_populates="user")
+
+    def __str__(self):
+        return self.email
 
 
 class UserData(Base):
